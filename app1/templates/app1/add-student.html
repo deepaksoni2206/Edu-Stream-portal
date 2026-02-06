@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Student | EduStream</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --sidebar-bg: #1a1c23;
+            --accent-color: #6366f1;
+            --body-bg: #f8fafc;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--body-bg);
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation (Exact same as Home) */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem 1.5rem;
+        }
+
+        .brand-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #94a3b8;
+            text-decoration: none;
+            padding: 12px 15px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: 0.3s;
+            margin-bottom: 5px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: white;
+        }
+
+        /* Form Workspace */
+        .main-content {
+            flex-grow: 1;
+            padding: 2rem 4rem;
+            overflow-y: auto;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2.5rem;
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Modern Input Styling */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-control, .form-select {
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            background-color: #fff;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .btn-save {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 14px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            width: 100%;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .btn-save:hover {
+            background-color: #4f46e5;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+        }
+
+        .header-action {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2rem;
+            color: #64748b;
+            text-decoration: none;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <a href="#" class="brand-logo">
+            <i class="fas fa-layer-group"></i>
+            <span>EduStream</span>
+        </a>
+        
+        <nav>
+            <a href="{% url 'home' %}" class="nav-link"><i class="fas fa-home"></i> Home</a>
+            <a href="{% url 'add' %}" class="nav-link active"><i class="fas fa-user-plus"></i> Add Student</a>
+            <a href="{% url 'dashboard' %}" class="nav-link"><i class="fas fa-users"></i> Dashboard</a>
+            <a href="{% url 'course' %}" class="nav-link"><i class="fas fa-book"></i> Courses</a>
+           
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <a href="{% url 'dashboard' %}" class="header-action">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+
+        <div class="form-card">
+            <div class="mb-4">
+                <h2 class="section-title">Register New Student</h2>
+                <p class="text-muted">Enter the student's personal and course enrollment details.</p>
+            </div>
+
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="row g-4">
+                    <div class="col-md-12">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" name="name" placeholder="e.g. Rahul Sharma" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Age</label>
+                        <input type="number" class="form-control" name="age" placeholder="Age" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">City</label>
+                        <input type="text" class="form-control" name="city" placeholder="City" required>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Selected Course</label>
+                        <select class="form-select" name="course" required>
+                            <option value="" selected disabled>Select a course</option>
+                            <option value="python">Python</option>
+                            <option value="django">Django</option>
+                            <option value="react">React</option>
+                            <option value="javascript">JavaScript</option>
+                            <option value="java">Java</option>  
+                            <option value="c++">C++</option>
+                            
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Course Price (INR)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-end-0">₹</span>
+                            <input type="number" step="0.01" class="form-control border-start-0" name="price" placeholder="0.00" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Enrollment Date</label>
+                        <input type="date" class="form-control" name="date" required>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-save">
+                            <i class="fas fa-check-circle me-2"></i> Complete Registration
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+</body>
+</html>

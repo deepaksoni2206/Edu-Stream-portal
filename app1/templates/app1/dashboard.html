@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Student Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --sidebar-bg: #0f172a;
+            --main-bg: #f8fafc;
+            --accent: #6366f1;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            height: 100vh;
+            width: 260px;
+            position: fixed;
+            background: var(--sidebar-bg);
+            color: white;
+            padding-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .sidebar .nav-link {
+            color: #94a3b8;
+            padding: 12px 25px;
+            margin: 5px 15px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 260px;
+            padding: 30px;
+        }
+
+        /* Enhanced Stats Cards */
+        .stat-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-shape {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .bg-soft-primary {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .bg-soft-success {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .bg-soft-warning {
+            background: #fef9c3;
+            color: #a16207;
+        }
+
+        /* Table Styling */
+        .table-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            margin-top: 30px;
+        }
+
+        .custom-table thead {
+            background: #f1f5f9;
+            color: #64748b;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-add {
+            background: var(--accent);
+            color: white;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #4f46e5;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .premium-search-container {
+            position: relative;
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .search-wrapper-inner {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            border: 2px solid #eef2f6;
+            border-radius: 16px;
+            padding: 4px 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Hover aur Focus Effect */
+        .premium-search-container:hover .search-wrapper-inner {
+            border-color: #d1d5db;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-wrapper-inner:focus-within {
+            border-color: #6366f1;
+            /* Indigo color */
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+            transform: translateY(-2px);
+        }
+
+        /* Icon Styling */
+        .search-icon-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .search-wrapper-inner:focus-within .search-icon-btn {
+            color: #6366f1;
+        }
+
+        /* Input Styling */
+        .premium-search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px 12px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #1e293b;
+            background: transparent;
+        }
+
+        .premium-search-input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* Keyboard Shortcut Tag (Visual Only) */
+        .search-kbd {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-family: sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #64748b;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .premium-search-container {
+                max-width: 100%;
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="px-4 mb-4">
+            <h4 class="fw-bold text-white"><i class="fas fa-graduation-cap me-2"></i>EduSmart</h4>
+        </div>
+        <nav class="nav flex-column">
+            <a class="nav-link active" href="{% url 'home' %}"><i class="fas fa-home me-2"></i> Home</a>
+            <a class="nav-link" href="{% url 'add' %}"><i class="fas fa-user-plus me-2"></i> Add Student</a>
+            <a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-users me-2"></i>Dashboard</a>
+            <a class="nav-link" href="{% url 'course' %}"><i class="fas fa-book me-2"></i> Courses</a>
+        </nav>
+    </div>
+
+
+    <div class="content">
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h2 class="fw-bold text-dark">Welcome back, Admin!</h2>
+                <p class="text-muted">Here's what's happening in your school today.</p>
+            </div>
+            <!-- serach bar -->
+            <form method="GET" action="{% url 'student_record_view' %}"
+                class="premium-search-container d-none d-lg-block">
+                <div class="search-wrapper-inner">
+                    <button type="submit" class="search-icon-btn">
+                        <i class="fa-solid fa-magnifying-glass fs-5"></i>
+                    </button>
+
+                    <input type="text" name="search" class="premium-search-input"
+                        placeholder="Search by name, city or course..." value="{{ search_query|default:'' }}"
+                        autocomplete="off">
+
+                    <div class="search-kbd">
+                        <span style="font-size: 10px;">CTRL</span>
+                        <span>K</span>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="icon-shape bg-soft-primary">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h6 class="text-muted mb-1">Total Students</h6>
+                    <h3 class="fw-bold">{{ total }}</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="icon-shape bg-soft-success">
+                        <i class="fas fa-user-check"></i>
+                    </div>
+                    <h6 class="text-muted mb-1">New Enrollments</h6>
+                    <h3 class="fw-bold">10</h3>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="icon-shape bg-soft-warning">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h6 class="text-muted mb-1">Avg. Attendance</h6>
+                    <h3 class="fw-bold">80%</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold">Recent Registrations</h5>
+                <button class="btn btn-sm btn-outline-secondary">View All</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table custom-table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Age</th>
+                            <th>City</th>
+                            <th>Cousrs</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <strong>{{ student.name }}</strong>
+                                </div>
+                            </td>
+
+                            <td>{{ student.age }}</td>
+                            <td>{{ student.city }}</td>
+                            <td>{{ student.course }}</td>
+                            <td>{{ student.price }}</td>
+                            <td>{{ student.date }}</td>
+
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>
+                                <a href="{% url 'update_student' student.id %}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'delete_student' student.id %}">
+                                    <button class="btn btn-sm text-danger">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </a>
+                                {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
