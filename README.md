@@ -1,6 +1,6 @@
 # Edu-Stream-portal
 A premium Student Management System built with Django &amp; Bootstrap 5. Features a glassmorphic dashboard, real-time search, and a compact course catalogue.
-![Dashboard Preview](https://via.placeholder.com/800x400?text=EduStream+Dashboard+Preview)
+
 
 ## ✨ Key Features
 
