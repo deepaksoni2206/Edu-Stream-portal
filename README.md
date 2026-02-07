@@ -15,6 +15,7 @@ A premium Student Management System built with Django &amp; Bootstrap 5. Feature
 - **Backend:** Python (Django 4.x+)
 - **Frontend:** HTML5, CSS3 (Custom Glassmorphism), JavaScript (ES6)
 - **Framework:** Bootstrap 5
+- **Database:** Sqlite
 - **Icons:** FontAwesome 6 & DevIcons
 
 
